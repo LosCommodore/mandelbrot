@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import mandel_py
 
 
-def mandel(c, limit=1000, max_iter=255):
+def mandel(c, limit=2, max_iter=255):
     value = 0 + 0j
     for i in range(max_iter, 1, -1):
         value = value ** 2 + c
@@ -27,18 +27,19 @@ def generate_pic(width, height):
 
 if __name__ == "__main__":
     #width, height = 1024, 768
-    #width, height = 8*3840, 8*2160
-    width, height = 16 * 3840, 16 * 2160
+    #width, height = 3840, 2160
+    width, height = 4 * 3840, 4 * 2160
 
-    pic = mandel_py.generate_pic(width, height)
+    max_iter = 255
+    pic = mandel_py.generate_pic(width, height, z_x=2/5, z_y=2/5, t_x=4/5, t_y=1/2, max_val=2, max_iter= max_iter)
 
     # noinspection PyUnresolvedReferences
     if only_save := True:
-        plt.imsave('mandel.png', pic, vmin=0,vmax=255, cmap=plt.cm.jet)
+        plt.imsave('mandel.png', pic, vmin=0, vmax=255, cmap=plt.cm.jet)
     else:
         cm = 1 / 2.54  # centimeters in inches
         fig = plt.figure(figsize=(20 * cm, 15 * cm), dpi=100)
-        plt.imshow(pic, vmin=0, vmax=255, cmap=plt.get_cmap("rainbow"))
+        plt.imshow(pic, vmin=0, vmax=max_iter, cmap=plt.get_cmap("rainbow"))
         plt.axis('off')
         plt.savefig('mandel.png', dpi=100)
         plt.show()
