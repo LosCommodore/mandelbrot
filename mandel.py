@@ -15,16 +15,6 @@ def mandel(c, limit=2, max_iter=255):
 
     return 0
 
-def generate_pic_old(width, height):
-    pic = np.zeros((height, width), dtype="int")
-    zoom_x, zoom_y = width / 4, height / 4
-    shift_x, shift_y = - width * 2 / 3, -height * 1 / 2
-    for y, x in np.ndindex(pic.shape):
-        c = (x + shift_x) / zoom_x + (y + shift_y) * 1j / zoom_y
-        pic[y, x] = mandel_py.mandel(c)
-
-    return pic
-
 
 @numba.njit()
 def generate_pic(width, height, z_x, z_y, t_x, t_y, max_val, max_iter):
